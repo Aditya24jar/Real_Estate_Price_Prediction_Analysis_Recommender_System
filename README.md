@@ -81,4 +81,17 @@ The project is demonstrated using a Flask app with a navigation bar for each fun
 
 The final results of the project are displayed in the form of images and interactive visualizations within the Flask app.
 
+### User Interface
+![User Interface](Interface-navigation-bar.png)
+
+### Price Prediction
+![Price Prediction](Price-Predictor.png)
+
+### Analytics Module
+![Analytics Module](Analytics-module.png)
+
+### Recommendation System
+![Recommendation System - Location](Recommend-apartments.png)
+![Recommendation System - Similarity](Recommend-location-radius.png)
+
 
