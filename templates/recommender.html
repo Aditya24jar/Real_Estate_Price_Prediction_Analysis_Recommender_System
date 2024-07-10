@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #2b2a2a, #2d2c2c, #323131);
+            /* Dark gradient background for the body */
+            color: #002147;
+            /* Light text color for better contrast */
+        }
+
+        .container {
+            background: linear-gradient(to bottom, #a8d2d0, #81a7b3);
+            /* Light gradient background for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            /* Darker shadow for the container */
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            /* Gradient for the button */
+            border: none;
+            color: #ffffff;
+            /* Light text color for the button */
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            /* Gradient for the button on hover */
+        }
+
+        .form-control {
+            background-color: #2c3e50;
+            /* Dark background for form controls */
+            border: 1px solid #34495e;
+            /* Border to match the form control background */
+            color: #ffffff;
+            /* Light text color for form controls */
+        }
+
+        .form-control::placeholder {
+            color: #bdc3c7;
+            /* Light placeholder text color */
+        }
+
+        label {
+            color: #002147;
+            /* Light text color for labels */
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-white" style="opacity: 0.6;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Real Estate App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analyse">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/base">Recommender system</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <h1 class="mt-5 mb-4 text-center">Real Estate Project Gurgaon</h1>
+        <h3 class="mt-5 mb-4 text-center">Recommender System (Location and Radius)</h3>
+        <form action="/search" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select class="form-control" id="location" name="location" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for location in locations %}
+                                <option value="{{ location }}">{{ location }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="radius">Radius in Kms</label>
+                            <input type="number" class="form-control" id="radius" name="radius" placeholder="Enter Radius Range in KMS" required>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Search</button>
+        </form>
+
+        {% if results %}
+        <h2 class="mt-5 mb-4 text-center">Results</h2>
+        <ul>
+            {% for key, value in results.items() %}
+                <li>{{ key }}: {{ value }} kms</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <br>
+
+        <h3 class="mt-5 mb-4 text-center">Recommender System (Apartments)</h3>
+        <form action="/recommend" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="apartment">Select an Apartment</label>
+                        <select class="form-control" id="apartment" name="apartment" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for apartment in apartments %}
+                                <option value="{{ apartment }}">{{ apartment }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Search</button>
+        </form>
+
+        {% if recommendations %}
+        <h2 class="mt-5 mb-4 text-center">Recommendations</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Similarity Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recommendation in recommendations %}
+                    <tr>
+                        <td>{{ recommendation.PropertyName }}</td>
+                        <td>{{ recommendation.SimilarityScore }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #2b2a2a, #2d2c2c, #323131);
+            /* Dark gradient background for the body */
+            color: #002147;
+            /* Light text color for better contrast */
+        }
+
+        .container {
+            background: linear-gradient(to bottom, #a8d2d0, #81a7b3);
+            /* Light gradient background for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            /* Darker shadow for the container */
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            /* Gradient for the button */
+            border: none;
+            color: #ffffff;
+            /* Light text color for the button */
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            /* Gradient for the button on hover */
+        }
+
+        .form-control {
+            background-color: #2c3e50;
+            /* Dark background for form controls */
+            border: 1px solid #34495e;
+            /* Border to match the form control background */
+            color: #ffffff;
+            /* Light text color for form controls */
+        }
+
+        .form-control::placeholder {
+            color: #bdc3c7;
+            /* Light placeholder text color */
+        }
+
+        label {
+            color: #002147;
+            /* Light text color for labels */
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-white" style="opacity: 0.6;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Real Estate App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/analyse">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/base">Recommender system</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <h1 class="mt-5 mb-4 text-center">Real Estate Project Gurgaon</h1>
+        <h2 class="mt-5 mb-4 text-center">Analytics Module</h2>
+        <h5 class="mt-5 mb-4 text-center text-danger" style="font-weight: bold;">Sector Price per sqft Geomap</h5>
+
+        <div id="plotly-graph"></div>
+        <script>
+            // The Plotly JSON data should be parsed
+            var plot_data = JSON.parse('{{ plot|safe }}');
+            // Use the parsed data to create the Plotly graph
+            Plotly.newPlot('plotly-graph', plot_data.data, plot_data.layout);
+        </script>
+
+        <br>
+        <br>
+        <h5 class="mt-5 mb-4 text-center text-danger" style="font-weight: bold;">Feature Wordcloud</h5>
+
+        <div>
+            <img src="data:image/png;base64,{{ wordcloud }}" alt="Word Cloud">
+        </div>
+        <br>
+        <br>
+        <h5 class="mt-5 mb-4 text-center text-danger" style="font-weight: bold;">Area vs Price</h5>
+
+        <div id="plotly-graph1"></div>
+        <script>
+            // The Plotly JSON data should be parsed
+            var plot_data_1 = JSON.parse('{{ plot1|safe }}');
+            // Use the parsed data to create the Plotly graph
+            Plotly.newPlot('plotly-graph1', plot_data_1.data, plot_data_1.layout);
+        </script>
+        <br>
+
+        <div id="plotly-graph2"></div>
+        <script>
+            // The Plotly JSON data should be parsed
+            var plot_data_2 = JSON.parse('{{ plot2|safe }}');
+            // Use the parsed data to create the Plotly graph
+            Plotly.newPlot('plotly-graph2', plot_data_2.data, plot_data_2.layout);
+        </script>
+        <br>
+        <br>
+        <h5 class="mt-5 mb-4 text-center text-danger" style="font-weight: bold;">BHK Pie Chart and Price Comparison</h5>
+
+        <div id="plotly-graph3"></div>
+        <script>
+            // The Plotly JSON data should be parsed
+            var plot_data_3 = JSON.parse('{{ plot3|safe }}');
+            // Use the parsed data to create the Plotly graph
+            Plotly.newPlot('plotly-graph3', plot_data_3.data, plot_data_3.layout);
+        </script>
+        <br>
+
+        <div id="plotly-graph4"></div>
+        <script>
+            // The Plotly JSON data should be parsed
+            var plot_data_4 = JSON.parse('{{ plot4|safe }}');
+            // Use the parsed data to create the Plotly graph
+            Plotly.newPlot('plotly-graph4', plot_data_4.data, plot_data_4.layout);
+        </script>
+
+        <br>
+        <br>
+        <h5 class="mt-5 mb-4 text-center text-danger" style="font-weight: bold;">Side by Side Dist Plot for property
+            type</h5>
+
+        <div>
+            <img src="data:image/png;base64,{{ distribution }}" alt="Distribution">
+        </div>
+        <br>
+        <br>
+
+
+
+
+    </div>
+</body>
+
+</html>

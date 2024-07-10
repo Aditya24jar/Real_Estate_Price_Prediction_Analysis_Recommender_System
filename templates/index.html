@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #2b2a2a, #2d2c2c, #323131);
+            /* Dark gradient background for the body */
+            color: #002147;
+            /* Light text color for better contrast */
+        }
+
+        .container {
+            background: linear-gradient(to bottom, #a8d2d0, #81a7b3);
+            /* Light gradient background for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            /* Darker shadow for the container */
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            /* Gradient for the button */
+            border: none;
+            color: #ffffff;
+            /* Light text color for the button */
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            /* Gradient for the button on hover */
+        }
+
+        .form-control {
+            background-color: #2c3e50;
+            /* Dark background for form controls */
+            border: 1px solid #34495e;
+            /* Border to match the form control background */
+            color: #ffffff;
+            /* Light text color for form controls */
+        }
+
+        .form-control::placeholder {
+            color: #bdc3c7;
+            /* Light placeholder text color */
+        }
+
+        label {
+            color: #002147;
+            /* Light text color for labels */
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-white" style="opacity: 0.6;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Real Estate App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analyse">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/base">Recommender system</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <h1 class="mt-5 mb-4 text-center">Real Estate Project Gurgaon</h1>
+        <h3 class="mt-5 mb-4 text-center">Enter Details for Price Prediction</h3>
+        <form action="/predict" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="Property_Type">Property Type</label>
+                        <select class="form-control" id="Property_Type" name="Property_Type" required>
+                            <option value="" selected disabled>Choose...</option>
+                            <option value="flat">Flat</option>
+                            <option value="house">House</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="Sector">Sector</label>
+                        <select class="form-control" id="Sector" name="Sector" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for sector in sectors %}
+                            <option value="{{ sector }}">{{ sector }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="NumberOfBedrooms">Number of Bedrooms</label>
+                        <select class="form-control" id="NumberOfBedrooms" name="NumberOfBedrooms" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for bedRoom in bedRooms %}
+                            <option value="{{ bedRoom }}">{{ bedRoom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="NumberOfBathrooms">Number of Bathrooms</label>
+                        <select class="form-control" id="NumberOfBathrooms" name="NumberOfBathrooms" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for bathRoom in bathRooms %}
+                            <option value="{{ bathRoom }}">{{ bathRoom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="balcony">Number of Balconies</label>
+                        <select class="form-control" id="balcony" name="balcony" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for balcony in balconies %}
+                            <option value="{{ balcony }}">{{ balcony }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="property_age">Property Age</label>
+                        <select class="form-control" id="property_age" name="property_age" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for property_age in property_ages %}
+                            <option value="{{ property_age }}">{{ property_age }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="built_up_area">Built Up Area</label>
+                        <input type="number" class="form-control" id="built_up_area" name="built_up_area" step="0.01"
+                            placeholder="Enter built up area" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="servant_room">Servant Room</label>
+                        <select class="form-control" id="servant_room" name="servant_room" required>
+                            <option value="" selected disabled>Choose...</option>
+                            <option value="0.0">0.0</option>
+                            <option value="1.0">1.0</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="store_room">Store Room</label>
+                        <select class="form-control" id="store_room" name="store_room" required>
+                            <option value="" selected disabled>Choose...</option>
+                            <option value="0.0">0.0</option>
+                            <option value="1.0">1.0</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="furnishing_type">Furnishing Type</label>
+                        <select class="form-control" id="furnishing_type" name="furnishing_type" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for furnishing_type in furnishing_types %}
+                            <option value="{{ furnishing_type }}">{{ furnishing_type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="luxury_category">Luxury Category</label>
+                        <select class="form-control" id="luxury_category" name="luxury_category" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for luxury_category in luxury_categories %}
+                            <option value="{{ luxury_category }}">{{ luxury_category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="floor_category">Floor Category</label>
+                        <select class="form-control" id="floor_category" name="floor_category" required>
+                            <option value="" selected disabled>Choose...</option>
+                            {% for floor_category in floor_categories %}
+                            <option value="{{ floor_category }}">{{ floor_category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-4">Predict</button>
+        </form>
+        <br>
+        <br>
+        {% if upper %}
+        <h3 class="mt-3">The price of the flat is between {{ lower | round(2) }} Cr and {{ upper | round(2) }} Cr</h3>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
