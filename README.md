@@ -91,7 +91,7 @@ The final results of the project are displayed in the form of images and interac
 ![Analytics Module](Analytics-module.png)
 
 ### Recommendation System
-![Recommendation System - Location](Recommend-apartments.png)
 ![Recommendation System - Similarity](Recommend-location-radius.png)
+![Recommendation System - Location](Recommend-apartments.png)
 
 
